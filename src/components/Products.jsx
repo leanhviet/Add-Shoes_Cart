@@ -31,10 +31,14 @@ const Products = () => {
       ...quantityProduct,
       [value.id]: 1,
     });
-
     setCheckClickbtn([...checkClickbtn, value.id]);
     setSumPrice((prev) => prev + value.price);
   };
+
+  useEffect(() => {
+    if (dataValue.length === 0) return;
+    localStorage.setItem("Items", JSON.stringify(dataValue));
+  }, [dataValue]);
 
   return (
     <div className=" card-List">

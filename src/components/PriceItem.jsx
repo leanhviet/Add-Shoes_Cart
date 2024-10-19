@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useData } from "../contextProvider";
-
 const PriceItem = () => {
   const {
     value: {
-      setDataValue,
       dataValue,
+      setDataValue,
       sumPrices,
       setSumPrice,
       checkClickbtn,
@@ -63,8 +62,6 @@ const PriceItem = () => {
       setSumPrice(sumPrices - value.price * quantityProduct[value.id]);
     }, 400);
   };
-
-  console.log(addClassActive);
 
   return (
     <div className="h-full pb-10 price-list">

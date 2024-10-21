@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useData } from "../contextProvider";
 const PriceItem = () => {
   const {
@@ -21,7 +21,6 @@ const PriceItem = () => {
       [value.id]: quantityProduct[value.id] - 1,
     });
     setSumPrice((prev) => prev - value.price);
-
     if (quantityProduct[value.id] - 1 === 0) {
       const newData = dataValue.filter((item) => item.id !== value.id);
       setTimeout(() => {
@@ -33,8 +32,14 @@ const PriceItem = () => {
         const newId = checkClickbtn.filter((id) => id !== value.id);
         setCheckClickbtn(newId);
         setSumPrice(sumPrices - value.price);
+        localStorage.setItem("Items", JSON.stringify(newData));
+        const newClickButton = checkClickbtn.filter(
+          (item) => item !== value.id
+        );
+        localStorage.setItem("ClickButton", JSON.stringify(newClickButton));
       }, 400);
     }
+    localStorage.setItem("quantity", JSON.stringify(quantityProduct));
   };
 
   const handlePlus = (value) => {
@@ -43,6 +48,7 @@ const PriceItem = () => {
       [value.id]: quantityProduct[value.id] + 1,
     });
     setSumPrice((prev) => prev + value.price);
+    localStorage.setItem("quantity", JSON.stringify(quantityProduct));
   };
 
   const handleDelete = (value) => {
@@ -60,11 +66,14 @@ const PriceItem = () => {
       const newId = checkClickbtn.filter((id) => id !== value.id);
       setCheckClickbtn(newId);
       setSumPrice(sumPrices - value.price * quantityProduct[value.id]);
+      localStorage.setItem("Items", JSON.stringify(newData));
+      const newClickButton = checkClickbtn.filter((item) => item !== value.id);
+      localStorage.setItem("ClickButton", JSON.stringify(newClickButton));
     }, 400);
   };
 
   return (
-    <div className="h-full pb-10 price-list">
+    <>
       {dataValue &&
         dataValue.map((item) => (
           <div
@@ -101,6 +110,7 @@ const PriceItem = () => {
                   <button
                     className="w-[28px] h-[28px] rounded-full bg-gray-200 flex items-center justify-center text-base font-bold"
                     onClick={() => handleMinus(item)}
+                    disabled={quantityProduct[item.id] === 0 ? true : false}
                   >
                     -
                   </button>
@@ -130,7 +140,7 @@ const PriceItem = () => {
             </div>
           </div>
         ))}
-    </div>
+    </>
   );
 };
 

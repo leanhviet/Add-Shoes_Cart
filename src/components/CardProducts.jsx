@@ -6,9 +6,10 @@ const CardProducts = () => {
   const {
     value: { data },
   } = useData();
+
   return (
     <>
-      <Card titleCard="Our Products" products={data}></Card>
+      <Card titleCard="Our Products" products={data && data.length > 0}></Card>
     </>
   );
 };

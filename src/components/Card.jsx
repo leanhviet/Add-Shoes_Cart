@@ -16,7 +16,7 @@ const Card = ({ titleCard, price, products, cardPrice }) => {
         <span>{titleCard}</span>
         {price && <span className="float-right">{price}</span>}
       </div>
-      {!cardPrice && price && (
+      {!cardPrice && price === "$0.00" && (
         <div>
           <p className="text-sm font-thin mb-[10px] pt-[10px]">
             Your cart is empty.
@@ -24,7 +24,11 @@ const Card = ({ titleCard, price, products, cardPrice }) => {
         </div>
       )}
       {products && <Products></Products>}
-      {cardPrice && <PriceItem></PriceItem>}
+      {cardPrice && (
+        <div className="h-full pb-10 price-list">
+          <PriceItem></PriceItem>
+        </div>
+      )}
     </div>
   );
 };

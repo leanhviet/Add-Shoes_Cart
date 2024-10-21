@@ -17,6 +17,10 @@ const Products = () => {
   } = useData();
 
   const handleClick = (value) => {
+    setQuantityProduct({
+      ...quantityProduct,
+      [value.id]: 1,
+    });
     setDataValue([
       ...dataValue,
       {
@@ -27,18 +31,40 @@ const Products = () => {
         price: value.price,
       },
     ]);
-    setQuantityProduct({
-      ...quantityProduct,
-      [value.id]: 1,
-    });
     setCheckClickbtn([...checkClickbtn, value.id]);
     setSumPrice((prev) => prev + value.price);
   };
 
+  // useEffect(() => {
+  //   if (Object.keys(quantityProduct).length === 0) return;
+  //   localStorage.setItem("quantity", JSON.stringify(quantityProduct));
+  // }, [quantityProduct]);
+
+  // useEffect(() => {
+  //   const dataStorage = localStorage.getItem("quantity");
+  //   if (!dataStorage) return;
+  //   setQuantityProduct(JSON.parse(dataStorage));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   useEffect(() => {
     if (dataValue.length === 0) return;
     localStorage.setItem("Items", JSON.stringify(dataValue));
-  }, [dataValue]);
+    if (checkClickbtn.length === 0) return;
+    localStorage.setItem("ClickButton", JSON.stringify(checkClickbtn));
+    if (Object.keys(quantityProduct).length === 0) return;
+    localStorage.setItem("quantity", JSON.stringify(quantityProduct));
+  }, [checkClickbtn, dataValue, quantityProduct]);
+
+  useEffect(() => {
+    const dataStorageBtn = localStorage.getItem("ClickButton");
+    if (!dataStorageBtn) return;
+    setCheckClickbtn(JSON.parse(dataStorageBtn));
+    const dataStorageQtt = localStorage.getItem("quantity");
+    if (!dataStorageQtt) return;
+    setQuantityProduct(JSON.parse(dataStorageQtt));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className=" card-List">
@@ -77,7 +103,7 @@ const Products = () => {
                     : "pointer-events-auto pt-4 pb-4 pl-5 pr-5"
                 }
               >
-                {checkClickbtn.includes(item.id) ? (
+                {checkClickbtn.length > 0 && checkClickbtn.includes(item.id) ? (
                   <img
                     src="./img/check.png"
                     className="w-[16px] h-[16px]"

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Button from "./Button";
-import { useData } from "../contextProvider";
+import React, {useEffect, useState} from 'react'
+import Button from './Button'
+import {useData} from '../contextProvider'
 
 const Products = () => {
   const {
@@ -12,15 +12,15 @@ const Products = () => {
       checkClickbtn,
       setCheckClickbtn,
       quantityProduct,
-      setQuantityProduct,
-    },
-  } = useData();
+      setQuantityProduct
+    }
+  } = useData()
 
   const handleClick = (value) => {
     setQuantityProduct({
       ...quantityProduct,
-      [value.id]: 1,
-    });
+      [value.id]: 1
+    })
     setDataValue([
       ...dataValue,
       {
@@ -28,43 +28,31 @@ const Products = () => {
         background: value.color,
         image: value.image,
         title: value.name,
-        price: value.price,
-      },
-    ]);
-    setCheckClickbtn([...checkClickbtn, value.id]);
-    setSumPrice((prev) => prev + value.price);
-  };
-
-  // useEffect(() => {
-  //   if (Object.keys(quantityProduct).length === 0) return;
-  //   localStorage.setItem("quantity", JSON.stringify(quantityProduct));
-  // }, [quantityProduct]);
-
-  // useEffect(() => {
-  //   const dataStorage = localStorage.getItem("quantity");
-  //   if (!dataStorage) return;
-  //   setQuantityProduct(JSON.parse(dataStorage));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+        price: value.price
+      }
+    ])
+    setCheckClickbtn([...checkClickbtn, value.id])
+    setSumPrice((prev) => prev + value.price)
+  }
 
   useEffect(() => {
-    if (dataValue.length === 0) return;
-    localStorage.setItem("Items", JSON.stringify(dataValue));
-    if (checkClickbtn.length === 0) return;
-    localStorage.setItem("ClickButton", JSON.stringify(checkClickbtn));
-    if (Object.keys(quantityProduct).length === 0) return;
-    localStorage.setItem("quantity", JSON.stringify(quantityProduct));
-  }, [checkClickbtn, dataValue, quantityProduct]);
+    if (dataValue.length === 0) return
+    localStorage.setItem('Items', JSON.stringify(dataValue))
+    if (checkClickbtn.length === 0) return
+    localStorage.setItem('ClickButton', JSON.stringify(checkClickbtn))
+    if (Object.keys(quantityProduct).length === 0) return
+    localStorage.setItem('quantity', JSON.stringify(quantityProduct))
+  }, [checkClickbtn, dataValue, quantityProduct])
 
   useEffect(() => {
-    const dataStorageBtn = localStorage.getItem("ClickButton");
-    if (!dataStorageBtn) return;
-    setCheckClickbtn(JSON.parse(dataStorageBtn));
-    const dataStorageQtt = localStorage.getItem("quantity");
-    if (!dataStorageQtt) return;
-    setQuantityProduct(JSON.parse(dataStorageQtt));
+    const dataStorageBtn = localStorage.getItem('ClickButton')
+    if (!dataStorageBtn) return
+    setCheckClickbtn(JSON.parse(dataStorageBtn))
+    const dataStorageQtt = localStorage.getItem('quantity')
+    if (!dataStorageQtt) return
+    setQuantityProduct(JSON.parse(dataStorageQtt))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <div className=" card-List">
@@ -75,7 +63,7 @@ const Products = () => {
             <div
               className="card-image h-[380px] flex items-center justify-center rounded-3xl  overflow-hidden"
               style={{
-                background: `${item.color}`,
+                background: `${item.color}`
               }}
             >
               <img
@@ -99,8 +87,8 @@ const Products = () => {
                 onClick={() => handleClick(item)}
                 className={
                   checkClickbtn.includes(item.id)
-                    ? "pointer-events-none w-[46px] h-[46px] flex items-center justify-center"
-                    : "pointer-events-auto pt-4 pb-4 pl-5 pr-5"
+                    ? 'pointer-events-none w-[46px] h-[46px] flex items-center justify-center'
+                    : 'pointer-events-auto pt-4 pb-4 pl-5 pr-5'
                 }
               >
                 {checkClickbtn.length > 0 && checkClickbtn.includes(item.id) ? (
@@ -110,14 +98,26 @@ const Products = () => {
                     alt=""
                   />
                 ) : (
-                  "ADD TO CART"
+                  'ADD TO CART'
                 )}
               </Button>
             </div>
           </div>
         ))}
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default Products
+
+// useEffect(() => {
+//   if (Object.keys(quantityProduct).length === 0) return;
+//   localStorage.setItem("quantity", JSON.stringify(quantityProduct));
+// }, [quantityProduct]);
+
+// useEffect(() => {
+//   const dataStorage = localStorage.getItem("quantity");
+//   if (!dataStorage) return;
+//   setQuantityProduct(JSON.parse(dataStorage));
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, []);

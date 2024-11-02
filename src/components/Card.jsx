@@ -1,8 +1,8 @@
-import React from "react";
-import Products from "./Products";
-import PriceItem from "./PriceItem";
+import React from 'react'
+import Products from './Products'
+import PriceItem from './PriceItem'
 
-const Card = ({ titleCard, price, products, cardPrice }) => {
+const Card = ({titleCard, price, products, cardPrice}) => {
   return (
     <div className="card ">
       <div className="w-[50px] icon-nike mb-[12px] mt-[12px]">
@@ -16,7 +16,7 @@ const Card = ({ titleCard, price, products, cardPrice }) => {
         <span>{titleCard}</span>
         {price && <span className="float-right">{price}</span>}
       </div>
-      {!cardPrice && price === "$0.00" && (
+      {!cardPrice && price === '$0.00' && (
         <div>
           <p className="text-sm font-thin mb-[10px] pt-[10px]">
             Your cart is empty.
@@ -30,7 +30,7 @@ const Card = ({ titleCard, price, products, cardPrice }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

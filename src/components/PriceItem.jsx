@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useData } from "../contextProvider";
+import React, {useState} from 'react'
+import {useData} from '../contextProvider'
 const PriceItem = () => {
   const {
     value: {
@@ -10,75 +10,73 @@ const PriceItem = () => {
       checkClickbtn,
       setCheckClickbtn,
       quantityProduct,
-      setQuantityProduct,
-    },
-  } = useData();
+      setQuantityProduct
+    }
+  } = useData()
 
-  const [addClassActive, setAddClassActive] = useState(0);
+  const [addClassActive, setAddClassActive] = useState(0)
   const handleMinus = (value) => {
     setQuantityProduct({
       ...quantityProduct,
-      [value.id]: quantityProduct[value.id] - 1,
-    });
-    setSumPrice((prev) => prev - value.price);
+      [value.id]: quantityProduct[value.id] - 1
+    })
+    setSumPrice((prev) => prev - value.price)
     if (quantityProduct[value.id] - 1 === 0) {
-      const newData = dataValue.filter((item) => item.id !== value.id);
+      const newData = dataValue.filter((item) => item.id !== value.id)
       setTimeout(() => {
-        setAddClassActive(value.id);
-      }, 200);
+        setAddClassActive(value.id)
+      }, 200)
       setTimeout(() => {
-        setAddClassActive(0);
-        setDataValue(newData);
-        const newId = checkClickbtn.filter((id) => id !== value.id);
-        setCheckClickbtn(newId);
-        setSumPrice(sumPrices - value.price);
-        localStorage.setItem("Items", JSON.stringify(newData));
-        const newClickButton = checkClickbtn.filter(
-          (item) => item !== value.id
-        );
-        localStorage.setItem("ClickButton", JSON.stringify(newClickButton));
-      }, 400);
+        setAddClassActive(0)
+        setDataValue(newData)
+        const newId = checkClickbtn.filter((id) => id !== value.id)
+        setCheckClickbtn(newId)
+        setSumPrice(sumPrices - value.price)
+        localStorage.setItem('Items', JSON.stringify(newData))
+        const newClickButton = checkClickbtn.filter((item) => item !== value.id)
+        localStorage.setItem('ClickButton', JSON.stringify(newClickButton))
+      }, 400)
     }
-    localStorage.setItem("quantity", JSON.stringify(quantityProduct));
-  };
+    localStorage.setItem('quantity', JSON.stringify(quantityProduct))
+  }
 
   const handlePlus = (value) => {
     setQuantityProduct({
       ...quantityProduct,
-      [value.id]: quantityProduct[value.id] + 1,
-    });
-    setSumPrice((prev) => prev + value.price);
-    localStorage.setItem("quantity", JSON.stringify(quantityProduct));
-  };
+      [value.id]: quantityProduct[value.id] + 1
+    })
+    setSumPrice((prev) => prev + value.price)
+    localStorage.setItem('quantity', JSON.stringify(quantityProduct))
+  }
 
   const handleDelete = (value) => {
-    const newData = dataValue.filter((item) => item.id !== value.id);
+    const newData = dataValue.filter((item) => item.id !== value.id)
     setQuantityProduct({
       ...quantityProduct,
-      [value.id]: 0,
-    });
+      [value.id]: 0
+    })
     setTimeout(() => {
-      setAddClassActive(value.id);
-    }, 200);
+      setAddClassActive(value.id)
+    }, 200)
     setTimeout(() => {
-      setAddClassActive(0);
-      setDataValue(newData);
-      const newId = checkClickbtn.filter((id) => id !== value.id);
-      setCheckClickbtn(newId);
-      setSumPrice(sumPrices - value.price * quantityProduct[value.id]);
-      localStorage.setItem("Items", JSON.stringify(newData));
-      const newClickButton = checkClickbtn.filter((item) => item !== value.id);
-      localStorage.setItem("ClickButton", JSON.stringify(newClickButton));
-    }, 400);
-  };
+      setAddClassActive(0)
+      setDataValue(newData)
+      const newId = checkClickbtn.filter((id) => id !== value.id)
+      setCheckClickbtn(newId)
+      setSumPrice(sumPrices - value.price * quantityProduct[value.id])
+      localStorage.setItem('Items', JSON.stringify(newData))
+      const newClickButton = checkClickbtn.filter((item) => item !== value.id)
+      localStorage.setItem('ClickButton', JSON.stringify(newClickButton))
+    }, 400)
+  }
 
   return (
     <>
-      {dataValue &&
+      {dataValue.length > 0 &&
         dataValue.map((item) => (
           <div
             className={`flex price-item ${
-              addClassActive === item.id ? "active" : ""
+              addClassActive === item.id ? 'active' : ''
             } `}
             key={item.id}
           >
@@ -86,7 +84,7 @@ const PriceItem = () => {
               <div
                 className="price-image w-[90px] h-[90px] rounded-full mr-[34px] "
                 style={{
-                  background: `${item.background}`,
+                  background: `${item.background}`
                 }}
               >
                 <div className="">
@@ -141,7 +139,7 @@ const PriceItem = () => {
           </div>
         ))}
     </>
-  );
-};
+  )
+}
 
-export default PriceItem;
+export default PriceItem

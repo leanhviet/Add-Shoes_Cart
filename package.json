@@ -1,10 +1,13 @@
 {
+  "homepage": "https://PhanThanhDat16.github.io/Add-Shoes_Cart",
   "name": "testinternaddtocart",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
